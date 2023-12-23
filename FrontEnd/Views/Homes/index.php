@@ -156,7 +156,7 @@
                 <h3>Login</h3>
               </div>
               <div class="card-body">
-                <form action="UserController" method="post">
+                <form action="user" method="post">
                   <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required>
@@ -189,7 +189,7 @@
                 Registration Form
               </div>
               <div class="card-body">
-                <form action="BackEnd/Controllers/UserController.php" method="post">
+                <form action="user" method="post">
                   <input type="hidden" name="Regis">
                   <div class="form-group">
                     <label class="mb-1" for="un">Username:</label>

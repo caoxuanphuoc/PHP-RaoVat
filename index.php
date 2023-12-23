@@ -15,9 +15,13 @@ $requestUri = $_SERVER['REQUEST_URI'];
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $urlParts = parse_url($requestUri);
 $path = $urlParts['path'];
+session_start();
 switch ($path) {
   case '/raovat/':
-    include __DIR__ . '/FrontEnd/Views/Homes/index.php';
+    if (isset($_SESSION['USER_LOGED']))
+      header("Location: /raovat/home");
+    else
+      include __DIR__ . '/FrontEnd/Views/Homes/index.php';
     break;
   case '/raovat/home':
     include __DIR__ . '/BackEnd/Controllers/HomeController.php';
@@ -25,8 +29,11 @@ switch ($path) {
   case '/raovat/post':
     include __DIR__ . '/BackEnd/Controllers/PostController.php';
     break;
-  case '/raovat/UserController':
+  case '/raovat/user':
     include __DIR__ . '/BackEnd/Controllers/UserController.php';
+    break;
+  case '/raovat/manageUser':
+    include __DIR__ . '/BackEnd/Controllers/ManageUserController.php';
     break;
   default:
     include 'pages/404.php';

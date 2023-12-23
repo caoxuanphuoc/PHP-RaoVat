@@ -2,6 +2,7 @@
 namespace Service;
 
 require_once __DIR__ . "/../Datas/UserData.php";
+require_once __DIR__ . "/RoleService.php";
 use Data\UserData;
 
 class UserService
@@ -49,6 +50,17 @@ class UserService
         //$username, $password, $name, $roleId = 2)
         $user = $this->UserData->getUserById($id);
         return $user;
+    }
+    public function GetAll()
+    {
+        //$username, $password, $name, $roleId = 2)
+        $roleSer = new RoleService();
+        $users = $this->UserData->getAllUsers();
+        foreach ($users as &$user) {
+            $role = $roleSer->GetRoleById($user['roleId']);
+            $user['RoleName'] = $role['name'];
+        }
+        return $users;
     }
 
 }

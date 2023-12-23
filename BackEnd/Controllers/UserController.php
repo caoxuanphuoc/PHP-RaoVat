@@ -43,15 +43,15 @@ class UserController extends Controller
                     $fn = $_POST["fn"];
                     $User = $service->Register($un, $pw, $fn, 2);
                     if ($User == null)
-                        header("Location: ../..?RegRes=UN");
+                        header("Location: /raovat?RegRes=UN");
                     else {
                         $Userlogin = $service->login($un, $pw);
-                        $_SESSION["USER_ID"] = $Userlogin ?? ["id"];
+                        $_SESSION["USER_LOGED"] = $Userlogin;
                         //$this->render("Home", $Userlogin);
                         header("Location: /raovat/home");
                     }
                 } else {
-                    header("Location: ../..?RegRes=Pass");
+                    header("Location: /raovat?RegRes=Pass");
                 }
             }
 

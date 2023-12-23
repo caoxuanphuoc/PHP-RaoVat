@@ -19,12 +19,11 @@ class ConnectionMySql
         // Check connection
         if (!$this->Context) {
             die("Connection failed: " . mysqli_connect_error());
-        } else {
-            echo "Connected successfully";
         }
     }
-    
-    public function disposeConnect(){
+
+    public function disposeConnect()
+    {
         if (!$this->Context) {
             die("Connection not open ");
         } else {
@@ -32,6 +31,6 @@ class ConnectionMySql
             echo "Close Connected successfully";
         }
     }
-    
+
 }
 ?>
