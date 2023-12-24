@@ -27,7 +27,7 @@
           ?>
           <ul>
             <li><a class="nav-link scrollto " href="#hero">Quản lý bài đăng</a></li>
-            <li><a class="nav-link scrollto" href="#about">Quản lý danh mục</a></li>
+            <li><a class="nav-link scrollto" href="/raovat/managePostType">Quản lý danh mục</a></li>
             <li><a class="nav-link scrollto" href="/raovat/manageUser">Quản lý người dùng</a></li>
             <li><a class="nav-link scrollto " href="#hero" style="color: white;">
                 <strong>

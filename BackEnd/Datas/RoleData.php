@@ -39,7 +39,7 @@ class RoleData
 
         $Rolename = $this->RoleContext->real_escape_string($Rolename);
         $Description = $this->RoleContext->real_escape_string($Description);
-        return $this->RoleContext->query("INSERT INTO Role (name, description) VALUES ('$Rolename', '$Description')");
+        return $this->RoleContext->query("INSERT INTO roles (name, description) VALUES ('$Rolename', '$Description')");
     }
     //DONE
     public function updateRole($RoleId, $Rolename, $Description)

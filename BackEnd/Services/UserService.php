@@ -35,16 +35,6 @@ class UserService
         }
         return null;
     }
-    //retrun true /false
-    public function ChangePass($userId, $oldPass, $newPass)
-    {
-        $user = $this->UserData->getUserById($userId);
-        if ($user != null && $user["passWord"] == $oldPass) {
-            return $this->UserData->updateUser($userId, $user["userName"], $user["passWord"], $user["phoneNumber"]);
-        } else {
-            return false;
-        }
-    }
     public function GetUserById($id)
     {
         //$username, $password, $name, $roleId = 2)
@@ -62,6 +52,20 @@ class UserService
         }
         return $users;
     }
-
+    public function UpdateUser($id, $un, $name, $roleId, $password = null)
+    {
+        $userCur = $this->GetUserById($id);
+        $userCur['userName'] = $un;
+        $userCur['name'] = $name;
+        $userCur['roleId'] = $roleId;
+        if ($password != null)
+            $userCur['passWord'] = $password;
+        $user = $this->UserData->updateUser($userCur["id"], $userCur["roleId"], $userCur["userName"], $userCur["passWord"], $userCur["name"], $userCur["phoneNumber"]);
+        return $user;
+    }
+    public function Delete($id)
+    {
+        $this->UserData->deleteUser($id);
+    }
 }
 ?>

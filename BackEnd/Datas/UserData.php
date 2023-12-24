@@ -51,16 +51,16 @@ class UserData
         return $this->UserContext->query("INSERT INTO user (userName, passWord, name, roleId) VALUES ('$username', '$password', '$name', $roleId)");
     }
     //DONE
-    public function updateUser($userId, $username, $password, $phoneNumber)
+    public function updateUser($userId, $roleId, $username, $password, $name, $phoneNumber)
     {
         $userId = $this->UserContext->real_escape_string($userId);
+        $roleId = $this->UserContext->real_escape_string($roleId);
         $username = $this->UserContext->real_escape_string($username);
         $password = $this->UserContext->real_escape_string($password);
-        $email = $this->UserContext->real_escape_string($phoneNumber);
+        $name = $this->UserContext->real_escape_string($name);
+        $phoneNumber = $this->UserContext->real_escape_string($phoneNumber);
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        return $this->UserContext->query("UPDATE user SET userName='$username', passWord='$hashedPassword', phoneNumber='$phoneNumber' WHERE id=$userId");
+        return $this->UserContext->query("UPDATE user SET roleId = $roleId, userName='$username', passWord='$password', name= '$name', phoneNumber='$phoneNumber' WHERE id=$userId");
     }
     //DONE
     public function deleteUser($userId)

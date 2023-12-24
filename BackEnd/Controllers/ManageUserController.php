@@ -16,13 +16,36 @@ class ManageUserController extends Controller
     }
     public function GateWay()
     {
+        //Author
+        if (isset($_SESSION['USER_LOGED'])) {
+            $userInfo = $_SESSION['USER_LOGED'];
+            if ($userInfo['roleId'] != 1)
+                header("Location: /raovat/home");
+        }
+
         $method = $_SERVER["REQUEST_METHOD"];
         $userService = new UserService();
         $roleService = new RoleService();
         session_start();
         if ($method == "POST") {
+            if (isset($_POST['addrole'])) {
+                $name = $_POST['name'];
+                $des = $_POST['description'];
+                $Rid = $_POST['addrole'];
+                if ($Rid == -1) {
+                    $roleService->Create($name, $des);
+                } else {
+                    $roleService->Update($Rid, $name, $des);
+                }
+                header("Location: /raovat/manageUser");
+            }
+            if (isset($_POST['delete'])) {
+                $Rid = $_POST['delete'];
+                $roleService->Delete($Rid);
+                header("Location: /raovat/manageUser");
+            }
 
-            header("Location: /raovat/home");
+
         } elseif ($method == "GET") {
             include __DIR__ . "/../../FrontEnd/Views/Header.php";
             $users = $userService->GetAll();

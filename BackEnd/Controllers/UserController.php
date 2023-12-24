@@ -16,8 +16,26 @@ class UserController extends Controller
     {
         $method = $_SERVER["REQUEST_METHOD"];
         $service = new UserService();
-        session_start();
+        //session_start();
         if ($method == "POST") {
+            //xử lý update
+            if (isset($_POST["update"])) {
+                $un = $_POST["userName"];
+                $roleID = $_POST["roleId"];
+                $name = $_POST["name"];
+                $userid = $_POST["update"];
+                $service->UpdateUser($userid, $un, $name, $roleID);
+                header("Location: /raovat/manageUser");
+
+            }
+            // Xử lý xóa
+            if (isset($_POST["delete"])) {
+                $uID = $_POST["delete"];
+                $service->Delete($uID);
+                header("Location: /raovat/manageUser");
+
+            }
+            //Xử lý login, register
             if (!isset($_POST["Regis"])) {
                 $LoginUsername = $_POST["username"];
                 $LoginPass = $_POST["password"];
