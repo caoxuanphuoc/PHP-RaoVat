@@ -16,13 +16,27 @@ class PostService
 
     }
     // return Object in MySQL
-    public function Create($userId, $typeId, $title, $content, $priceFrom, $priceTo, $location, $status = 0)
+    public function Create($userId, $typeId, $title, $content, $priceFrom, $priceTo, $location, $status = 1)
     {
         //$username, $password, $name, $roleId = 2)
         $post = $this->PostData->createpost($userId, $typeId, $title, $content, $priceFrom, $priceTo, $location, $status);
         return $post;
     }
-    public function GetALL()
+    public function Update($postId, $userId, $typeId, $title, $content, $priceFrom, $priceTo, $location, $status)
+    {
+        $post = $this->PostData->updatepost($postId, $userId, $typeId, $title, $content, $priceFrom, $priceTo, $location, $status);
+        return $post;
+    }
+    public function getRecord()
+    {
+        return $this->PostData->getRecord();
+    }
+    public function Delete($postId)
+    {
+        $this->PostData->deletepost($postId);
+
+    }
+    public function GetALL($page, $pageSize)
     {
         //$username, $password, $name, $roleId = 2)
         $posts = $this->PostData->getAllposts();
@@ -30,7 +44,12 @@ class PostService
             $user = $this->UserService->GetUserById($post['userId']);
             $post["userName"] = $user['name'];
         }
-        return $posts;
+        // paging
+        $postPage = [];
+        for ($i = ($page - 1) * $pageSize; $i < $page * $pageSize && $i < count($posts); $i++) {
+            $postPage[] = $posts[$i];
+        }
+        return $postPage;
     }
     public function GetPostById($id)
     {

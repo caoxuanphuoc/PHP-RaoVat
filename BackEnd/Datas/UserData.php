@@ -68,6 +68,13 @@ class UserData
         $userId = $this->UserContext->real_escape_string($userId);
         $this->UserContext->query("DELETE FROM user WHERE id=$userId");
     }
+    public function getRecord()
+    {
+        $result = $this->UserContext->query("SELECT count(*) as cnt FROM user");
+
+        return $result->fetch_assoc();
+
+    }
 }
 
 ?>

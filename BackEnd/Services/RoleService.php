@@ -17,12 +17,21 @@ class RoleService
         $Role = $this->RoleData->createRole($Rolename, $Description);
         return $Role;
     }
-    public function GetAll()
+    public function GetAll($page, $pageSize)
     {
         //$username, $password, $name, $roleId = 2)
         $Roles = $this->RoleData->getAllRoles();
-        return $Roles;
+        $RolePage = [];
+        for ($i = ($page - 1) * $pageSize; $i < $page * $pageSize && $i < count($Roles); $i++) {
+            $RolePage[] = $Roles[$i];
+        }
+        return $RolePage;
     }
+    public function GetRecord()
+    {
+        return $this->RoleData->GetRecord();
+    }
+
     public function GetRoleById($id)
     {
         //$username, $password, $name, $roleId = 2)

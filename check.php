@@ -1,16 +1,26 @@
 <?php
-use Data\PostData;
+use Service\PostService;
 
-require_once __DIR__ . "/BackEnd/Datas/PostData.php";
+require_once __DIR__ . "/BackEnd/Services/PostService.php";
 
-$service = new PostData();
+$service = new PostService();
+$TotalRecords = $service->getRecord()['cnt'];
 
-$posts = $service->getAllposts();
-foreach ($posts as &$post) {
-    $post["ten"] = "Phuoc";
-}
-echo '<pre>';
+var_dump($TotalRecords);
+
+$check = $TotalRecords % 10 == 0;
+var_dump($check);
+$page = intdiv($TotalRecords, 10);
+var_dump($page);
+
+$page += $check ? 0 : 1;
+var_dump($page);
+echo $page
+
+    ?>
+
+<!-- echo '</pre>';
 print_r($posts);
-echo '</pre>';
+echo '</pre>'; -->
 
 ?>

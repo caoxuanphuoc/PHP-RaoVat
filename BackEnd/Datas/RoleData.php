@@ -55,6 +55,13 @@ class RoleData
         $RoleId = $this->RoleContext->real_escape_string($RoleId);
         $this->RoleContext->query("DELETE FROM roles WHERE id=$RoleId");
     }
+    public function getRecord()
+    {
+        $result = $this->RoleContext->query("SELECT count(*) as cnt FROM roles");
+
+        return $result->fetch_assoc();
+
+    }
 }
 
 ?>

@@ -41,7 +41,7 @@ class UserService
         $user = $this->UserData->getUserById($id);
         return $user;
     }
-    public function GetAll()
+    public function GetAll($page, $pageSize)
     {
         //$username, $password, $name, $roleId = 2)
         $roleSer = new RoleService();
@@ -50,7 +50,15 @@ class UserService
             $role = $roleSer->GetRoleById($user['roleId']);
             $user['RoleName'] = $role['name'];
         }
-        return $users;
+        $UsersPage = [];
+        for ($i = ($page - 1) * $pageSize; $i < $page * $pageSize && $i < count($users); $i++) {
+            $UsersPage[] = $users[$i];
+        }
+        return $UsersPage;
+    }
+    public function GetRecord()
+    {
+        return $this->UserData->GetRecord();
     }
     public function UpdateUser($id, $un, $name, $roleId, $password = null)
     {

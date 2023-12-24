@@ -35,6 +35,9 @@ switch ($path) {
   case '/raovat/manageUser':
     include __DIR__ . '/BackEnd/Controllers/ManageUserController.php';
     break;
+  case '/raovat/managePostType':
+    include __DIR__ . '/BackEnd/Controllers/ManagePostTypeController.php';
+    break;
   default:
     include 'pages/404.php';
     break;

@@ -17,10 +17,19 @@ class PostData
 
     }
     //DONE
+    public function getRecord()
+    {
+        $result = $this->postContext->query("SELECT count(*) as cnt FROM post");
+
+        return $result->fetch_assoc();
+
+    }
     public function getAllposts()
     {
-        $result = $this->postContext->query("SELECT * FROM post");
+        $result = $this->postContext->query("SELECT * FROM post ORDER BY creation DESC");
+
         return $result->fetch_all(MYSQLI_ASSOC);
+
     }
     //DONE
     public function getpostById($postId)
@@ -63,13 +72,13 @@ class PostData
 
         return $this->postContext->query("UPDATE post
         SET
-        userId = '$userId'
-        typeId = '$typeId'
-        title = '$title'
-        content = '$content'
-        priceFrom = '$priceFrom'
-        priceTo = '$priceTo'
-        location = '$location'
+        userId = '$userId',
+        typeId = $typeId,
+        title = '$title',
+        content = '$content',
+        priceFrom = '$priceFrom',
+        priceTo = '$priceTo',
+        location = '$location',
         status = '$status'
         WHERE id = $postId
         ");

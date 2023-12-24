@@ -26,7 +26,7 @@ class ManageUserController extends Controller
         $method = $_SERVER["REQUEST_METHOD"];
         $userService = new UserService();
         $roleService = new RoleService();
-        session_start();
+        //session_start();
         if ($method == "POST") {
             if (isset($_POST['addrole'])) {
                 $name = $_POST['name'];
@@ -48,8 +48,18 @@ class ManageUserController extends Controller
 
         } elseif ($method == "GET") {
             include __DIR__ . "/../../FrontEnd/Views/Header.php";
-            $users = $userService->GetAll();
-            $roles = $roleService->GetAll();
+            $pageu = 1;
+            if (isset($_GET["pageu"])) {
+                $pageu = $_GET["pageu"];
+            }
+            $pager = 1;
+            if (isset($_GET["pager"])) {
+                $pager = $_GET["pager"];
+            }
+            $users = $userService->GetAll($pageu, 5);
+            $roles = $roleService->GetAll($pager, 5);
+            $TotalRecordUsers = $userService->getRecord()['cnt'];
+            $TotalRecordRoles = $roleService->getRecord()['cnt'];
             include __DIR__ . "/../../FrontEnd/Views/Users/manageUser.php";
 
         }

@@ -1,6 +1,9 @@
-<div class="container mt-3">
+<div class="container mt-4">
     <span>
-        <h3> Quản lý người dùng</h3>
+        <section>
+
+            <h3> Quản lý người dùng</h3>
+        </section>
     </span>
 </div>
 <!-- Hai bảng -->
@@ -58,18 +61,37 @@
                 <?php } ?>
             </tbody>
         </table>
+        <!-- Nav user -->
         <nav aria-label="Page navigation example">
+            <?php
+            $check = $TotalRecordUsers % 5 == 0;
+            $page = intdiv($TotalRecordUsers, 5);
+            $page += $check ? 0 : 1;
+            $i = 1;
+            $UserCheckPageR = isset($_GET['pager']) ? '&pager=' . $_GET['pager'] : ""
+
+                ?>
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a class="page-link"
+                        href="/raovat/manageUser?pageu=<?= $i == 1 ? $i : $i - 1 ?><?= $UserCheckPageR ?>"
+                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+
+                <?php
+                for ($i = 1; $i <= $page; $i++) {
+                    ?>
+                    <li class="page-item"><a class="page-link"
+                            href="/raovat/manageUser?pageu=<?= $i ?><?= $UserCheckPageR ?>">
+                            <?= $i ?>
+                        </a></li>
+                <?php } ?>
+                <li class="page-item" disa>
+                    <a class="page-link"
+                        href="/raovat/manageUser?pageu=<?= $i > $page ? $i - 1 : $i ?><?= $UserCheckPageR ?>"
+                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -134,18 +156,37 @@
                 <?php } ?>
             </tbody>
         </table>
+        <!-- Nav ROle -->
         <nav aria-label="Page navigation example">
+            <?php
+            $check = $TotalRecordRoles % 5 == 0;
+            $page = intdiv($TotalRecordRoles, 5);
+            $page += $check ? 0 : 1;
+            $i = 1;
+            $RoleCheckPageU = isset($_GET['pageu']) ? '&pageu=' . $_GET['pageu'] : ""
+
+                ?>
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a class="page-link"
+                        href="/raovat/manageUser?pager=<?= $i == 1 ? $i : $i - 1 ?><?= $RoleCheckPageU ?>"
+                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+
+                <?php
+                for ($i = 1; $i <= $page; $i++) {
+                    ?>
+                    <li class="page-item"><a class="page-link"
+                            href="/raovat/manageUser?pager=<?= $i ?><?= $RoleCheckPageU ?>">
+                            <?= $i ?>
+                        </a></li>
+                <?php } ?>
+                <li class="page-item" disa>
+                    <a class="page-link"
+                        href="/raovat/manageUser?pager=<?= $i > $page ? $i - 1 : $i ?><?= $RoleCheckPageU ?>"
+                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -183,7 +224,7 @@
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()"
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editModal')"
                         data-dismiss="modal">Close</button>
                     <input type="submit" class="btn btn-primary" onclick="saveChanges()" value="Sửa">
                 </div>
